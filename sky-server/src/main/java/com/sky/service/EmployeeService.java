@@ -5,6 +5,7 @@ import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.result.PageResult;
+import com.sky.result.Result;
 
 public interface EmployeeService {
 
@@ -34,5 +35,15 @@ public interface EmployeeService {
      * @Since version 1.0
      */
     PageResult page(EmployeePageQueryDTO employeePageQueryDTO);
-    
+
+    /**
+     * @Author
+     * @Date
+     * @Description 启用、禁用员工账号
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+    Result status(Integer status, Long id);
+
 }

@@ -6,6 +6,7 @@ import com.sky.entity.Employee;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface EmployeeMapper {
@@ -31,7 +32,24 @@ public interface EmployeeMapper {
             +"(#{name}, #{username}, #{password}, #{phone}, #{sex}, #{idNumber}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
     void insert(Employee employee);
 
-    // 员工分页查询SQL
+    /**
+     * @Author
+     * @Date
+     * @Description 员工分页查询SQL
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
     Page<Employee> pageQuery();
 
+    /**
+     * @Author
+     * @Date
+     * @Description 启用、禁用员工账号
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+    @Update("update employee set status = #{status} where id = #{id}")
+    void updateStatus(Employee employee);
 }
