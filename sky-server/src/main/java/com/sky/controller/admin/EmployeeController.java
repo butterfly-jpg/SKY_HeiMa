@@ -99,7 +99,7 @@ public class EmployeeController {
      */
     @GetMapping("/page")
     @ApiOperation("员工分页查询")
-    public Result page(EmployeePageQueryDTO employeePageQueryDTO){
+    public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO){
         PageResult pageResult = employeeService.page(employeePageQueryDTO);
         return Result.success(pageResult);
     }
@@ -115,9 +115,58 @@ public class EmployeeController {
     @PostMapping("/status/{status}")
     @ApiOperation("启用禁用员工账号")
     public Result status(@PathVariable Integer status, Long id){
+        //status是路径参数，主要用于获取数据库的用户信息或特定内容
+        //id是查询参数，主要用于查询、搜索、筛选用户或商品等额外的请求参数
         log.info("启用禁用员工账号：{},{}",status, id);
-        Result result = employeeService.status(status, id);
-        return Result.success(result);
+        employeeService.status(status, id);
+        return Result.success();
     }
+
+    /**
+     * @Author
+     * @Date
+     * @Description
+     * 编辑员工信息
+     * 分为两步骤：
+     * 步骤1： 根据id查询员工信息 实现 回显员工信息功能
+     * 步骤2： 编辑员工信息 实现 修改员工信息功能
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+    /**
+     * @Author
+     * @Date
+     * @Description 步骤1： 根据id查询员工信息 实现 回显员工信息功能
+     * @Param 路径参数 Long id
+     * @Return Employee对象
+     * @Since version 1.0
+     */
+
+    @GetMapping("/{id}")//id是路径参数
+    @ApiOperation("根据id查询员工信息")
+    public Result<Employee> queryEmpById(@PathVariable Long id){
+        Employee employee = employeeService.queryEmpById(id);
+        return Result.success(employee);
+    }
+
+    /**
+     * @Author
+     * @Date
+     * @Description 步骤2： 编辑员工信息 实现 修改员工信息功能
+     * 注：登录账号是admin管理员，因此员工信息的启用状态不管是0还是1，admin账户都可以进行修改操作
+     * @Param EmployeeDTO对象
+     * @Return Result.success()
+     * @Since version 1.0
+     */
+    @PutMapping
+    @ApiOperation("编辑员工信息")
+    public Result edit(@RequestBody EmployeeDTO employeeDTO){
+        log.info("编辑员工信息：{}", employeeDTO);
+        employeeService.edit(employeeDTO);
+        return Result.success();
+    }
+
+
 
 }

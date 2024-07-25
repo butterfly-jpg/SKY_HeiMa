@@ -14,6 +14,7 @@ public interface EmployeeService {
      * @param employeeLoginDTO
      * @return
      */
+
     Employee login(EmployeeLoginDTO employeeLoginDTO);
 
     /**
@@ -24,6 +25,7 @@ public interface EmployeeService {
      * @Return
      * @Since version 1.0
      */
+
     void save(EmployeeDTO employeeDTO);
 
     /**
@@ -34,6 +36,7 @@ public interface EmployeeService {
      * @Return 
      * @Since version 1.0
      */
+
     PageResult page(EmployeePageQueryDTO employeePageQueryDTO);
 
     /**
@@ -44,6 +47,29 @@ public interface EmployeeService {
      * @Return
      * @Since version 1.0
      */
-    Result status(Integer status, Long id);
 
+    void status(Integer status, Long id);
+
+
+    /**
+     * @Author
+     * @Date
+     * @Description 根据id查询员工信息
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+
+    Employee queryEmpById(Long id);
+
+    /**
+     * @Author
+     * @Date
+     * @Description 编辑员工信息
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+
+    void edit(EmployeeDTO employeeDTO);
 }

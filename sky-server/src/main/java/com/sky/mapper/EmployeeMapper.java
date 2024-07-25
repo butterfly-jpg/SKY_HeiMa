@@ -52,4 +52,25 @@ public interface EmployeeMapper {
      */
     @Update("update employee set status = #{status} where id = #{id}")
     void updateStatus(Employee employee);
+
+    /**
+     * @Author
+     * @Date
+     * @Description 根据id查询员工信息
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+    @Select("select * from employee where id = #{id}")
+    Employee getById(Long id);
+
+    /**
+     * @Author
+     * @Date
+     * @Description 编辑员工信息
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+    void update(Employee employee);
 }

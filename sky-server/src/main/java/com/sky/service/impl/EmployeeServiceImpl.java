@@ -129,13 +129,57 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
 
     @Override
-    public Result status(Integer status, Long id) {
+    public void status(Integer status, Long id) {
         Employee employee = Employee.builder()
                 .status(status)
                 .id(id)
                 .build();
         employeeMapper.updateStatus(employee);
-        return Result.success();
     }
 
+    /**
+     * @Author
+     * @Date
+     * @Description 根据id查询员工信息
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+    @Override
+    public Employee queryEmpById(Long id) {
+        Employee employee = employeeMapper.getById(id);
+        return employee;
+    }
+
+    /**
+     * @Author
+     * @Date
+     * @Description 编辑员工信息
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+
+    @Override
+    public void edit(EmployeeDTO employeeDTO) {
+        //employee中有其他属性时employeeDTO中没有的
+        //将employeeDTO拷贝到employee中，并把其他的属性进一步填写封装
+        //对象属性拷贝
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO, employee);
+
+        //设置密码(MD5加密)和启用状态
+        employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
+        employee.setStatus(StatusConstant.ENABLE);
+
+        //设置当前记录修改时间
+        employee.setUpdateTime(LocalDateTime.now());
+
+        //设置当前记录修改人Id
+        //从ThreadLocal中得到id
+        employee.setUpdateUser(BaseContext.getCurrentId());
+
+        employeeMapper.update(employee);
+
+    }
 }
