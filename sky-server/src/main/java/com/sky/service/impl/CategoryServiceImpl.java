@@ -56,12 +56,16 @@ public class CategoryServiceImpl implements CategoryService {
 
         //新添加的分类状态默认为”禁用“status=0
         category.setStatus(StatusConstant.DISABLE);
+
+        /**
+         * 通过AOP技术实现公共字段自动填充
+         */
         //设置创建时间和更新时间
-        category.setCreateTime(LocalDateTime.now());
-        category.setUpdateTime(LocalDateTime.now());
+//        category.setCreateTime(LocalDateTime.now());
+//        category.setUpdateTime(LocalDateTime.now());
         //设置创建人id和修改人id
-        category.setCreateUser(BaseContext.getCurrentId());
-        category.setUpdateUser(BaseContext.getCurrentId());
+//        category.setCreateUser(BaseContext.getCurrentId());
+//        category.setUpdateUser(BaseContext.getCurrentId());
 
         categoryMapper.insert(category);
     }
@@ -127,9 +131,12 @@ public class CategoryServiceImpl implements CategoryService {
 
         //修改启用禁用状态，默认为禁用status=0
         category.setStatus(StatusConstant.ENABLE);
+        /**
+         * 通过AOP技术实现公共字段自动填充
+         */
         //设置修改时间和修改人id
-        category.setUpdateTime(LocalDateTime.now());
-        category.setUpdateUser(BaseContext.getCurrentId());
+//        category.setUpdateTime(LocalDateTime.now());
+//        category.setUpdateUser(BaseContext.getCurrentId());
 
         categoryMapper.update(category);
     }
