@@ -9,7 +9,7 @@ sky:
   # 阿里云OSS相关配置
   alioss:
     endpoint: oss-cn-beijing.aliyuncs.com
-    access-key-id:
-    access-key-secret:
+    access-key-id: LTAI5tEEzP9UFrL9U8FSbjjR
+    access-key-secret: zlzKK4lqc1eYFmhTM7pPkfQJBBuFyP
     bucket-name: sky-take-out-czk
 
