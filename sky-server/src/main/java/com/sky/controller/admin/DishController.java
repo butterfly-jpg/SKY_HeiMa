@@ -102,5 +102,22 @@ public class DishController {
         return Result.success();
     }
 
+    /**
+     * @Author
+     * @Date
+     * @Description 菜品起售停售
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("菜品起售停售")
+    public Result startOrEndStatus(@PathVariable Integer status, @RequestParam Long id){//路径参数status和查询参数id
+        dishService.startOrEndStatus(status, id);
+        return Result.success();
+    }
+
+
+
 
 }

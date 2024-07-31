@@ -72,4 +72,15 @@ public interface DishService {
      */
 
     void updateDish(DishDTO dishDTO);
+
+    /**
+     * @Author
+     * @Date
+     * @Description 菜品起售停售
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+
+    void startOrEndStatus(Integer status, Long id);
 }

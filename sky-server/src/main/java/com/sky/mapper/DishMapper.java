@@ -10,6 +10,7 @@ import com.sky.vo.DishVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * @Author: 程志琨
@@ -91,4 +92,16 @@ public interface DishMapper {
      */
     @AutoFill(OperationType.UPDATE)
     void update(Dish dish);
+
+    /**
+     * @Author
+     * @Date
+     * @Description 菜品起售停售
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+    @Update("update dish set status = #{status} where id = #{id}")
+    void updateStatus(Dish dish);
+
 }
