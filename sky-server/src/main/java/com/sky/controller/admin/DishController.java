@@ -6,6 +6,7 @@ import com.sky.dto.DishPageQueryDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +54,53 @@ public class DishController {
         log.info("菜品批量删除：{}", ids);
         dishService.batchDishDelete(ids);
         return Result.success();
-
     }
+
+
+    /**
+     * @Author
+     * @Date
+     * @Description 修改菜品
+     * 说明：
+     * 根据产品原型分析接口设计：共需要设计4个接口
+     * 接口1：根据菜品id查询菜品实现数据回显功能
+     * 接口2：根据类型查询分类（已实现）
+     * 接口3：文件上传（已实现）
+     * 接口4：修改菜品
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+
+    /**
+     * @Author
+     * @Date
+     * @Description 接口1：根据菜品id查询菜品实现数据回显功能
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询菜品")
+    public Result<DishVO> queryDishWithFlavorsById(@PathVariable Long id){
+        log.info("根据id查询菜品：{}", id);
+        DishVO dishVO = dishService.queryDishById(id);
+        return Result.success(dishVO);
+    }
+    /**
+     * @Author
+     * @Date
+     * @Description 接口4：修改菜品
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+    @PutMapping
+    @ApiOperation("修改菜品")
+    public Result updateDishWithFlavors(@RequestBody DishDTO dishDTO){
+        dishService.updateDish(dishDTO);
+        return Result.success();
+    }
+
 
 }

@@ -2,6 +2,7 @@ package com.sky.mapper;
 
 import com.github.pagehelper.Page;
 import com.sky.annotation.AutoFill;
+import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.enumeration.OperationType;
@@ -71,6 +72,7 @@ public interface DishMapper {
      * @Author
      * @Date
      * @Description 删除菜品数据
+     * AOP技术+自定义注解 解决公共字段自动填充功能
      * @Param
      * @Return
      * @Since version 1.0
@@ -78,4 +80,15 @@ public interface DishMapper {
     @Delete("delete from dish where id = #{id}")
     void deleteById(Long id);
 
+
+    /**
+     * @Author
+     * @Date
+     * @Description 修改菜品
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+    @AutoFill(OperationType.UPDATE)
+    void update(Dish dish);
 }
