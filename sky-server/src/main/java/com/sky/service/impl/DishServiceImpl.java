@@ -2,12 +2,16 @@ package com.sky.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.constant.MessageConstant;
+import com.sky.constant.StatusConstant;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
+import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
+import com.sky.mapper.SetmealDishMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
@@ -34,6 +38,8 @@ public class DishServiceImpl implements DishService {
     private DishMapper dishMapper;
     @Autowired
     private DishFlavorMapper dishFlavorMapper;
+    @Autowired
+    private SetmealDishMapper setmealDishMapper;
 
     /**
      * @Author
@@ -90,5 +96,48 @@ public class DishServiceImpl implements DishService {
         long total = page.getTotal();
         List<DishVO> result = page.getResult();
         return new PageResult(total, result);
+    }
+
+
+    /**
+     * @Author
+     * @Date
+     * @Description 批量删除菜品
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+
+    @Override
+    @Transactional
+    public void batchDishDelete(List<Long> ids) {
+        //判断菜品的起售状态
+        for (Long id : ids) {
+            //在菜品表中 通过菜品id 得到 菜品实体类数据
+            Dish dish = dishMapper.getDishById(id);
+            //起售状态下表示不能删除
+            if(dish.getStatus() == StatusConstant.ENABLE){
+                //欲删除起售状态的菜品数据 报MessageConstant.DISH_ON_SALE = "起售中的菜品不能删除";异常
+                throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
+            }
+        }
+
+        //判断菜品是否被套餐关联
+        //在setmeal_dish套餐菜品关联表中 通过dishId 查 setmealId是否存在(这里使用批量查询)
+        List<Long> setmealIds = setmealDishMapper.getSetmealIdsByDishIds(ids);
+        if(setmealIds != null && setmealIds.size() > 0){
+            //欲删除有关联状态的菜品数据 报MessageConstant.DISH_BE_RELATED_BY_SETMEAL="当前菜品关联了套餐,不能删除";异常
+            throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
+        }
+
+        //删除
+        for (Long id : ids) {
+            //删除菜品数据
+            dishMapper.deleteById(id);
+            //删除菜品数据关联的口味数据
+            dishFlavorMapper.deleteByDishId(id);
+        }
+
+
     }
 }

@@ -4,6 +4,8 @@ import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.result.PageResult;
 
+import java.util.List;
+
 /**
  * @Author: 程志琨
  * @Description:    菜品Service层接口
@@ -36,5 +38,16 @@ public interface DishService {
      */
 
     PageResult dishPageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    /**
+     * @Author
+     * @Date
+     * @Description 批量删除菜品
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+
+    void batchDishDelete(List<Long> ids);
 
 }
