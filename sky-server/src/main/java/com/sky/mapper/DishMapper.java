@@ -12,6 +12,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 /**
  * @Author: 程志琨
  * @Description:    菜单表 Mapper层接口
@@ -104,4 +106,14 @@ public interface DishMapper {
     @Update("update dish set status = #{status} where id = #{id}")
     void updateStatus(Dish dish);
 
+    /**
+     * @Author
+     * @Date
+     * @Description 根据分类id查询菜品
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+    @Select("select * from dish where category_id = #{categoryId}")
+    List<Dish> query(Dish dish);
 }
