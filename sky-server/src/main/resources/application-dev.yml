@@ -5,7 +5,7 @@ sky:
     port: 3306
     database: sky_take_out
     username: root
-    password: czk
+    password: czk520 #实验室密码为czk 笔记本密码为czk520
   # 阿里云OSS相关配置
   alioss:
     endpoint: oss-cn-beijing.aliyuncs.com
