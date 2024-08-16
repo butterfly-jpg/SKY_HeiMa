@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: 程志琨
@@ -111,7 +112,7 @@ public class CategoryController {
      */
     @PostMapping("/status/{status}")
     @ApiOperation("启用禁用分类")
-    public Result status(@PathVariable Integer status, Long id){
+    public Result status(@PathVariable Integer status, @RequestParam Long id){
         categoryService.openOrCloseStatus(status, id);
         return Result.success();
     }
@@ -127,9 +128,10 @@ public class CategoryController {
      */
     @GetMapping("/list")
     @ApiOperation("根据类型查询分类")
-    public Result<ArrayList> queryByType(Integer type){
-        ArrayList<Category> arrayList = categoryService.queryByType(type);
-        return Result.success(arrayList);
+    public Result<List<Category>> queryByType(@RequestParam Integer type){//type是查询参数
+        log.info("根据类型查询分类：{}", type);
+        List<Category> list = categoryService.queryByType(type);
+        return Result.success(list);
     }
 
 

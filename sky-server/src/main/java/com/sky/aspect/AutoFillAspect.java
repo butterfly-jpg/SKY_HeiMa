@@ -66,9 +66,9 @@ public class AutoFillAspect {
         MethodSignature signature = (MethodSignature)joinPoint.getSignature();//获取方法签名类对象
         AutoFill autoFill = signature.getMethod().getAnnotation(AutoFill.class);//获取方法上@AutoFill注释的对象
 
-        //2、获取当前被拦截的方法的参数即实体对象,这里是将方法的所有参数全部获取放到Object[]数组中
+        //2、获取当前被拦截的方法的参数(Mapper方法的传入参数)即实体对象,这里是将方法的所有参数全部获取放到Object[]数组中
         Object[] args = joinPoint.getArgs();
-        //约定数组的第一个元素是我们想要的实体类对象。同时由@AutoFill注释的所有方法的参数不一定都相同(不同功能方法有不同类型的参数)
+        //约定数组的第一个元素是我们想要的实体类对象。由@AutoFill注释的所有方法的参数不一定都相同(不同功能方法有不同类型的参数)
         //所以用Object来修饰
         Object entity = args[0];
 

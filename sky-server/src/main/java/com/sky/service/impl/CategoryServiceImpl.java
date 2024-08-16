@@ -83,7 +83,7 @@ public class CategoryServiceImpl implements CategoryService {
     public PageResult page(CategoryPageQueryDTO categoryPageQueryDTO) {
 
         PageHelper.startPage(categoryPageQueryDTO.getPage(), categoryPageQueryDTO.getPageSize());
-        Page<Category> page = categoryMapper.pageQuery();
+        Page<Category> page = categoryMapper.pageQuery(categoryPageQueryDTO);
         long total = page.getTotal();
         List<Category> records = page.getResult();
         return new PageResult(total, records);
@@ -164,8 +164,8 @@ public class CategoryServiceImpl implements CategoryService {
      * @Since version 1.0
      */
     @Override
-    public ArrayList<Category> queryByType(Integer type) {
-        ArrayList<Category> arrayList = categoryMapper.queryByType(type);
-        return arrayList;
+    public List<Category> queryByType(Integer type) {
+        List<Category> list = categoryMapper.queryByType(type);
+        return list;
     }
 }

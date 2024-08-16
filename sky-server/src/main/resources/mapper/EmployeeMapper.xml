@@ -21,7 +21,7 @@
     </update>
 
 
-<!--    Page<Employee> pageQuery(); 员工分页查询SQL-->
+<!--    Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO); 员工分页查询SQL-->
     <select id="pageQuery" resultType="com.sky.entity.Employee">
         select * from employee
         <where>

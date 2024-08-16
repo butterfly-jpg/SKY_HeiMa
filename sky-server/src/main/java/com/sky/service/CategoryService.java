@@ -6,6 +6,7 @@ import com.sky.entity.Category;
 import com.sky.result.PageResult;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: 程志琨
@@ -80,6 +81,6 @@ public interface CategoryService {
      * @Since version 1.0
      */
 
-    ArrayList<Category> queryByType(Integer type);
+    List<Category> queryByType(Integer type);
 
 }

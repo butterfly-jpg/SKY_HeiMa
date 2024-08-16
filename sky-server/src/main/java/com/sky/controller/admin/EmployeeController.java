@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +42,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/login")
+    @ApiOperation("员工登录")
     public Result<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
         log.info("员工登录：{}", employeeLoginDTO);
 
@@ -49,6 +51,7 @@ public class EmployeeController {
         //登录成功后，生成jwt令牌
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.EMP_ID, employee.getId());
+        //使用员工id生成token
         String token = JwtUtil.createJWT(
                 jwtProperties.getAdminSecretKey(),
                 jwtProperties.getAdminTtl(),
@@ -70,6 +73,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/logout")
+    @ApiOperation("员工退出")
     public Result<String> logout() {
         return Result.success();
     }
@@ -77,7 +81,7 @@ public class EmployeeController {
     /**
      * @Author
      * @Date
-     * @Description 新增员工
+     * @Description 新增员工:添加后台系统用户
      * @Param
      * @Return
      * @Since version 1.0
@@ -116,7 +120,7 @@ public class EmployeeController {
      */
     @PostMapping("/status/{status}")
     @ApiOperation("启用禁用员工账号")
-    public Result status(@PathVariable Integer status, Long id){
+    public Result status(@PathVariable Integer status, @RequestParam Long id){
         //status是路径参数，主要用于获取数据库的用户信息或特定内容
         //id是查询参数，主要用于查询、搜索、筛选用户或商品等额外的请求参数
         log.info("启用禁用员工账号：{},{}",status, id);

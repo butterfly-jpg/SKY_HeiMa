@@ -21,6 +21,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -58,6 +59,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
         }
 
+        //status属性
         if (employee.getStatus() == StatusConstant.DISABLE) {
             //账号被锁定
             throw new AccountLockedException(MessageConstant.ACCOUNT_LOCKED);
@@ -78,14 +80,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void save(EmployeeDTO employeeDTO) {
 
-        //employee中有其他属性时employeeDTO中没有的
+        //employee中有employeeDTO中没有的属性
         //将employeeDTO拷贝到employee中，并把其他的属性进一步填写封装
         //对象属性拷贝
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);
 
         //设置密码(MD5加密)和启用状态
+        // 默认密码PasswordConstant.DEFAULT_PASSWORD=123456
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
+        //默认状态是启用中StatusConstant.ENABLE=1
         employee.setStatus(StatusConstant.ENABLE);
 
 
@@ -117,7 +121,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public PageResult page(EmployeePageQueryDTO employeePageQueryDTO) {
 
         PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
-        Page<Employee> page = employeeMapper.pageQuery();
+        Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
         long total = page.getTotal();
         List<Employee> records = page.getResult();
         return new PageResult(total, records);

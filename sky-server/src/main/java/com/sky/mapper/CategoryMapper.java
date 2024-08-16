@@ -2,11 +2,13 @@ package com.sky.mapper;
 
 import com.github.pagehelper.Page;
 import com.sky.annotation.AutoFill;
+import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
 import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: 程志琨
@@ -41,7 +43,7 @@ public interface CategoryMapper {
      * @Since version 1.0
      */
 
-    Page<Category> pageQuery();
+    Page<Category> pageQuery(CategoryPageQueryDTO categoryPageQueryDTO);
 
     /**
      * @Author
@@ -85,6 +87,6 @@ public interface CategoryMapper {
      * @Since version 1.0
      */
 
-    ArrayList<Category> queryByType(Integer type);
+    List<Category> queryByType(Integer type);
 
 }
