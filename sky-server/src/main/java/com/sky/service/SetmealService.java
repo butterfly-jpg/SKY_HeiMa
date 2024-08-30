@@ -1,6 +1,10 @@
 package com.sky.service;
 
 import com.sky.dto.SetmealDTO;
+import com.sky.dto.SetmealPageQueryDTO;
+import com.sky.result.PageResult;
+
+import java.util.List;
 
 /**
  * @Author: 程志琨
@@ -22,4 +26,26 @@ public interface SetmealService {
      */
 
     void insertSetmealWithSetmealDishes(SetmealDTO setmealDTO);
+
+    /**
+     * @Author
+     * @Date
+     * @Description 套餐分页查询
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+
+    PageResult setmealPageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    /**
+     * @Author
+     * @Date
+     * @Description 批量删除套餐
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+
+    void deleteBatchSetmeal(List<Long> ids);
 }
