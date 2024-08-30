@@ -5,10 +5,7 @@ import com.sky.annotation.AutoFill;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.Setmeal;
 import com.sky.enumeration.OperationType;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 /**
  * @Author: 程志琨
@@ -76,4 +73,26 @@ public interface SetmealMapper {
      */
     @Delete("delete from setmeal where id = #{id}")
     void deleteSetmeal(Long id);
+
+    /**
+     * @Author
+     * @Date
+     * @Description 套餐起售停售
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+    @Update("update setmeal set status = #{status} where id = #{id}")
+    void changeStatus(Long status, Long id);
+
+    /**
+     * @Author
+     * @Date
+     * @Description 修改套餐
+     * @Param
+     * @Return
+     * @Since version 1.0
+     */
+    @AutoFill(OperationType.UPDATE)
+    void updateSetmeal(Setmeal setmeal);
 }
