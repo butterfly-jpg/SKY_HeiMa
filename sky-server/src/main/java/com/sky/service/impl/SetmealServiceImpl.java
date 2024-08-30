@@ -57,7 +57,6 @@ public class SetmealServiceImpl implements SetmealService {
             //批量插入
             setmealDishMapper.insertBatch(setmealDishes);
         }
-        //套餐菜品表setmeal_dish中需要插入n条数据,一个套餐下可能会关联多个菜品
 
 
     }
