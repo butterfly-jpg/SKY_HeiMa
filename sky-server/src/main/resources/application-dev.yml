@@ -12,4 +12,11 @@ sky:
     access-key-id: LTAI5tEEzP9UFrL9U8FSbjjR
     access-key-secret: zlzKK4lqc1eYFmhTM7pPkfQJBBuFyP
     bucket-name: sky-take-out-czk
+  # redis相关配置
+  redis:
+    host: localhost
+    port: 6379
+    #password:
+    database: 0
+
 
