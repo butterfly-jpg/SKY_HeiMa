@@ -18,5 +18,15 @@ sky:
     port: 6379
     #password:
     database: 0
-
-
+  # 微信登录相关配置
+  wechat:
+    appid: wxdc999abb5e4fbdb0
+    secret: c88e6d2665ab30cfdfa3f949be02d0cd
+    # 为微信用户生成jwt令牌时相关配置
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    user-secret-key: itcast
+    # 设置前端传递过来的令牌名称
+    user-token-name: authentication
+    # 设置jwt过期时间
+    user-ttl: 7200000

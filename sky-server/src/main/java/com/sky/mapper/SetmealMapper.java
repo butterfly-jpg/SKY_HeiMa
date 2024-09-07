@@ -95,4 +95,9 @@ public interface SetmealMapper {
      */
     @AutoFill(OperationType.UPDATE)
     void updateSetmeal(Setmeal setmeal);
+
+
+
+
+
 }
